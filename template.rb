@@ -11,6 +11,8 @@ run "touch Gemfile"
 
 add_source 'https://rubygems.org'
 
+insert_into_file 'Gemfile', "\nruby '2.2.1'", after: "source 'https://rubygems.org'\n"
+
 gem 'rails', '4.2.3'
 
 gem 'sass-rails', '~> 5.0'
@@ -37,7 +39,6 @@ gem_group :production do
 	gem 'mysql2'
 	gem 'puma'
 	gem 'fog'
-	gem 'newrelic_rpm'
 end
 
 # Frontend Lib
@@ -59,21 +60,73 @@ gem 'rolify'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'kaminari'
-gem 'acts-as-taggable-on', '~> 3.4'
-gem "nested_form"
+# gem 'acts-as-taggable-on', '~> 3.4'
+gem 'nested_form'
 
 
 after_bundle do
-	# Install devise
+	generate 'controller home index'
+	route "root to: 'home#index'"
+	puts "\n================ APP ROOT GENERATED ================\n"
+
+
 	generate 'devise:install'
 	generate 'devise User'
-	insert_into_file 'config/environments/development.rb' do <<-RUBY
+	insert_into_file 'config/environments/development.rb', after: "Rails.application.configure do\n" do <<-RUBY
 		"config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }"
 	RUBY
 	end
+	generate 'migration AddFieldsToUsers username:string:uniq:index name:string'
+	puts "\n================ DEVISE SETUP COMPLETE ================\n"
 
-	# Initialize git
+
+	generate 'rolify Role User'
+	puts "\n================ ROLIFY ADDED TO USER MODEL ========"
+
+	inside 'app/models' do
+		# Cancan ability
+		copy_file 'ability.rb'
+		puts "\n================ CANCAN ABILITY GENERATED ========"
+
+		remove_file 'user.rb'
+		copy_file 'user.rb'
+		puts "\n================ USER MODEL RECONFIGURED ========"		
+	end
+
+	inside 'db' do
+		remove_file 'seeds.rb'
+		copy_file 'seeds.rb'		
+		puts "\n================ SEED DATA GENERATED ================"
+	end
+
+
+	inside 'config' do
+		remove_file 'database.yml'
+		copy_file 'database.yml'
+		puts "\n================ DB CONFIG GENERATED ================"
+
+		# Puma
+		copy_file 'puma.rb'
+		puts "\n================ PUMA CONFIG GENERATED ================"
+
+		# CarrierWave
+		copy_file 'initializers/carrierwave.rb'
+		puts "\n================ CARRIERWAVE INITIALISED ================\n"
+
+	end
+
+	# Uploaders
+	inside 'app/uploaders' do
+		copy_file 'image_uploader.rb'
+		puts "\n================ IMAGE UPLOADER GENERATED ================\n"
+	end 
+
+	rake 'db:setup'
+	puts "\n================ DB SETUP COMPLETE ================\n"
+
+
 	git :init
 	git add: "."
 	git commit: "-a -m 'Initial commit'"
+	puts "\n================ GIT INITIALISED ================\n"
 end
