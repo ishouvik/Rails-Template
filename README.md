@@ -38,6 +38,7 @@ Make sure the rmagick gem installation succeeds before running the bundle comman
 - Manually copy db/seeds.rb
 
 ## To do
+- Guard and Livereload
 - Support for MandrillApp/Mailgun
 
 ## Support
