@@ -1,0 +1,6 @@
+en:
+  site:
+   name: 'Rails 4 App'
+   headline: 'Created using iShouvik Rails Template'
+   description: 'This is an example Rails app generated with iShouvik Rails Template. Please, feel free to make modifications as you wish'
+   nocontent: 'Oops, nothing to show here yet!'

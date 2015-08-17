@@ -44,10 +44,8 @@ end
 # Frontend Lib
 gem "therubyracer"
 gem "twitter-bootstrap-rails"
-gem 'bootstrap-datepicker-rails'
-gem "select2-rails" # jQuery based replacement for select boxes
 gem 'jquery-turbolinks'
-gem 'google-webfonts-rails' # Google webfonts
+gem 'google-webfonts-rails'
 
 # Authentication
 gem 'devise'
@@ -60,70 +58,123 @@ gem 'rolify'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'kaminari'
-# gem 'acts-as-taggable-on', '~> 3.4'
 gem 'nested_form'
 
 
 after_bundle do
 	generate 'controller home index'
 	route "root to: 'home#index'"
-	puts "\n================ APP ROOT GENERATED ================\n"
+
+	inside 'app/controllers' do
+		remove_file 'application_controller.rb'
+		copy_file 'application_controller.rb'
+	end
+	puts "\n================ CONTROLLERS SETUP COMPLETE ================\n"
 
 
 	generate 'devise:install'
 	generate 'devise User'
 	insert_into_file 'config/environments/development.rb', after: "Rails.application.configure do\n" do <<-RUBY
-		"config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }"
+		config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 	RUBY
 	end
 	generate 'migration AddFieldsToUsers username:string:uniq:index name:string'
+	generate 'devise:views'
 	puts "\n================ DEVISE SETUP COMPLETE ================\n"
 
 
 	generate 'rolify Role User'
-	puts "\n================ ROLIFY ADDED TO USER MODEL ========"
+	puts "\n================ ROLIFY ADDED TO USER MODEL ================\n"
 
 	inside 'app/models' do
 		# Cancan ability
 		copy_file 'ability.rb'
-		puts "\n================ CANCAN ABILITY GENERATED ========"
+		puts "\n================ CANCAN ABILITY GENERATED ================\n"
 
 		remove_file 'user.rb'
 		copy_file 'user.rb'
-		puts "\n================ USER MODEL RECONFIGURED ========"		
+		puts "\n================ USER MODEL RECONFIGURED ================\n"		
 	end
 
-	inside 'db' do
-		remove_file 'seeds.rb'
-		copy_file 'seeds.rb'		
-		puts "\n================ SEED DATA GENERATED ================"
-	end
+	# inside 'db' do
+	# 	# remove_file 'seeds.rb'
+	# 	copy_file 'seeds.rb', :force => true
+	# 	puts "\n================ SEED DATABA GENERATED ================\n"
+	# end
 
 
 	inside 'config' do
+		# Locales
+		insert_into_file 'locales/en.yml', after: "en:\n" do <<-RUBY
+		site:
+		 name: 'Rails 4 App'
+		 headline: 'Created using iShouvik Rails Template'
+		 description: 'This is an example Rails app generated with iShouvik Rails Template. Please, feel free to make modifications as you wish'
+		 nocontent: 'Oops, nothing to show here yet!'
+		RUBY
+		end
+		
+		# Database
 		remove_file 'database.yml'
 		copy_file 'database.yml'
-		puts "\n================ DB CONFIG GENERATED ================"
 
 		# Puma
 		copy_file 'puma.rb'
-		puts "\n================ PUMA CONFIG GENERATED ================"
 
 		# CarrierWave
 		copy_file 'initializers/carrierwave.rb'
-		puts "\n================ CARRIERWAVE INITIALISED ================\n"
 
+		puts "\n================ CONFIG FILES GENERATED ================\n"
 	end
 
 	# Uploaders
 	inside 'app/uploaders' do
 		copy_file 'image_uploader.rb'
-		puts "\n================ IMAGE UPLOADER GENERATED ================\n"
+		puts "\n================ UPLOADERS GENERATED ================\n"
 	end 
 
-	rake 'db:setup'
-	puts "\n================ DB SETUP COMPLETE ================\n"
 
+	generate 'bootstrap:install static'
+
+	puts "\n================ BOOTSTRAP INSTALLED =================\n"
+
+	inside 'app/assets/stylesheets' do
+		copy_file 'main.scss'
+		insert_into_file 'application.css', after: "*= require_tree .\n" do
+			" *= main\n"
+		end
+	end
+	inside 'app/assets/javascripts' do
+		insert_into_file 'application.js', after: "//= require jquery\n" do
+			"//= require jquery.turbolinks\n"
+		end
+		insert_into_file 'application.js', after: "//= require jquery.turbolinks\n" do
+			"//= require jquery_nested_form\n"
+		end
+	end
+	puts "\n================ ASSET FILES UPDATED ================\n"
+
+
+	rake 'assets:precompile'
+	rake 'db:setup'
+	rake 'db:migrate'
+	rake 'db:seed'
+	puts "\n================ RAKE TASKS COMPLETE ================\n"
+
+	inside 'app/views/layouts' do
+		# copy_file 'application.html.erb', :force => true
+		copy_file '_foot.html.erb'
+		copy_file '_footer.html.erb'
+		copy_file '_head.html.erb'
+		copy_file '_main_nav.html.erb'
+		copy_file '_modal_dialog.html.erb'
+		copy_file '2-col-rightsidebar.html.erb'
+		copy_file 'blank.html.erb'
+		copy_file 'full-width.html.erb'
+		copy_file 'one-col.html.erb'
+		
+	end
+	puts "\n================ LAYOUT FILES COPIED ================\n"
 
 	git :init
 	git add: "."

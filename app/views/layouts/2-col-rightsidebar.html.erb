@@ -1,0 +1,35 @@
+<%= render 'layouts/head' %>
+
+<div id="2-col-rightsidebar" class="body">
+  <%= render 'layouts/main_nav' %>
+
+  <div class="container">
+    <div class="col-md-9 main-content box">
+      <%= yield %>
+    </div> <!-- col-md-9 main-content box -->
+    <div class="col-md-3 sidebar">
+      <%= yield :sidebar %>
+      
+      <div class="box">
+        <%= render 'profiles/get_related_profiles' %>
+      </div>
+
+      <div class="tags box">
+        <h3>Popular skills</h3>
+        <% tag_cloud(@skill_tags, %w(tag-1 tag-2 tag-3 tag-4)) do |tag, css_class| %>
+          <%= link_to tag.name, user_profiles_path(:type => :skill, :key => tag.name), :class => css_class %>
+        <% end %>
+      </div>
+      
+      <div class="tags box">
+        <h3>Common interests</h3>
+        <% tag_cloud(@interest_tags, %w(tag-1 tag-2 tag-3 tag-4)) do |tag, css_class| %>
+          <%= link_to tag.name, user_profiles_path(:type => :interest, :key => tag.name), :class => css_class %>
+        <% end %>
+      </div>
+    </div> <!-- .col-md-3 .sidebar -->
+  </div> <!-- /.container -->
+  <%= render 'layouts/footer' %>
+</div> <!-- /#2-col-rightsidebar .body -->
+
+<%= render 'layouts/foot' %>

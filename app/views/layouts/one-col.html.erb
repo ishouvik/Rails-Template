@@ -1,0 +1,13 @@
+<%= render 'layouts/head' %>
+
+<div id="main" class="main body">
+    <%= render 'layouts/main_nav' %>
+    <div class="container">
+      <div class="box">
+        <%= yield %>
+      </div><!-- /.box -->
+    </div> <!-- /.container -->
+    <%= render 'layouts/footer' %>
+</div> <!-- /#main .main body -->
+
+<%= render 'layouts/foot' %>
