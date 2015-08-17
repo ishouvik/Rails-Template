@@ -4,7 +4,6 @@ This is one easy to use Rails template with all necessary gems and config files 
 ## Usage
 - Clone this repo
 - `rails new <app name> -m <path to template.rb> --skip-bundle`
-- Make language changes to the `en.yml` language file
 - Manually copy app/views/layouts/application.rb
 - Manually copy db/seeds.rb
 
