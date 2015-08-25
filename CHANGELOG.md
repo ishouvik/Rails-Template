@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 25.8.2015
+### FIXED
+- Ability model syntax bug
+
+### ADDED
+- Guard and Livereload
+
+
 ## 17.8.2015
 ### ADDED
 - twitter-bootstrap-rails

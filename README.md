@@ -1,6 +1,7 @@
 # Rails Template
 This is one easy to use Rails template with all necessary gems and config files that I normally use.
 
+
 ## Installation
 - Clone this repo
 - `rails new <app name> -m <path to template.rb> --skip-bundle`
@@ -9,7 +10,9 @@ This is one easy to use Rails template with all necessary gems and config files 
 - Manually copy app/views/layouts/application.rb
 - Manually copy db/seeds.rb
 
+
 ## Usage
+
 ### Login
 - Admin Email: admin@admin.com
 - Admin Password: password
@@ -17,10 +20,15 @@ This is one easy to use Rails template with all necessary gems and config files 
 - User Email: johndoe@example.com
 - User Password: password
 
+## Guard and Livereload
+- [Install Chrome browser extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?utm_source=chrome-ntp-icon)
+- `bundle exec guard`
+
 
 ## Dependencies
 - Imagemagick
 - MySQL Connector
+
 
 ## Troubleshooting
 
@@ -40,6 +48,7 @@ Make sure the rmagick gem installation succeeds before running the bundle comman
 ## To do
 - Guard and Livereload
 - Support for MandrillApp/Mailgun
+
 
 ## Support
 I'd be very happy to receive/answer feedback/questions and criticism. [GitHub Issues](https://github.com/ishouvik/Rails-Template/issues)

@@ -32,6 +32,8 @@ gem_group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'sqlite3'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'guard-livereload'
 end
 
 gem_group :production do
@@ -62,6 +64,10 @@ gem 'nested_form'
 
 
 after_bundle do
+	copy_file 'Guardfile'
+	puts "\n================ GUARDFILE PLACED ================\n"
+
+
 	generate 'controller home index'
 	route "root to: 'home#index'"
 
