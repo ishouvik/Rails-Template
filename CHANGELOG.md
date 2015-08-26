@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 26.8.2015
+### FIXED
+- Ability model gues user instance
+
 ## 25.8.2015
 ### FIXED
 - Ability model syntax bug
