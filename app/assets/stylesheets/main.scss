@@ -33,28 +33,6 @@ a, .btn {
 	min-height: 600px;
 }
 
-.box {
-	margin-bottom: 15px;
-	padding: 15px;
-	min-height: 10px;
-	background: white;
-	border: 1px solid #dedede;
-	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
-	box-shadow: 1px 1px 10px #dedede;
-	
-	.col-md-2 {
-		margin-left: 0;
-		margin-right: 0;
-		padding-left: 0;
-		padding-right: 0;
-	}
-	
-	.col-md-10 {
-		margin-right: 0;
-		padding-right: 0;
-	}
-}
-
 .no-border {
 	border: 0 !important;
 }

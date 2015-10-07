@@ -44,11 +44,10 @@ Make sure the rmagick gem installation succeeds before running the bundle comman
 ## Known issues
 - Manually copy app/views/layouts/application.rb
 - Manually copy db/seeds.rb
+- Fix formation config/locales/en.yml
 
 ## To do
 - Support for MandrillApp/Mailgun
-- Simple form integration
-
 
 ## Support
 I'd be very happy to receive/answer feedback/questions and criticism. [GitHub Issues](https://github.com/ishouvik/Rails-Template/issues)

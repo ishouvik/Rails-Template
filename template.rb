@@ -60,6 +60,7 @@ gem 'rolify'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'kaminari'
+gem 'simple_form'
 gem 'nested_form'
 
 
@@ -77,6 +78,9 @@ after_bundle do
 	end
 	puts "\n================ CONTROLLERS SETUP COMPLETE ================\n"
 
+	generate 'simple_form:install --bootstrap'
+	puts "\n================ SIMPLE FORM BOOTSTRAP SETUP COMPLETE ================\n"
+
 
 	generate 'devise:install'
 	generate 'devise User'
@@ -84,7 +88,7 @@ after_bundle do
 		config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 	RUBY
 	end
-	generate 'migration AddFieldsToUsers username:string:uniq:index name:string'
+	generate 'migration AddFieldsToUsers avatar:string username:string:uniq:index name:string'
 	generate 'devise:views'
 	puts "\n================ DEVISE SETUP COMPLETE ================\n"
 
@@ -175,6 +179,7 @@ after_bundle do
 		copy_file '_main_nav.html.erb'
 		copy_file '_modal_dialog.html.erb'
 		copy_file '2-col-rightsidebar.html.erb'
+		copy_file '2-col-leftsidebar.html.erb'
 		copy_file 'blank.html.erb'
 		copy_file 'full-width.html.erb'
 		copy_file 'one-col.html.erb'

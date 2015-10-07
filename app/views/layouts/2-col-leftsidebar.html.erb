@@ -4,12 +4,12 @@
   <%= render 'layouts/main_nav' %>
 
   <div class="container">
-    <div id="main" class="col-md-9 main-content">
-      <%= yield %>
-    </div> <!-- col-md-9 main-content box -->
     <div id="sidebar" class="col-md-3 sidebar">
       <%= yield :sidebar %>
     </div> <!-- .col-md-3 .sidebar -->
+    <div id="main" class="col-md-9 main-content">
+      <%= yield %>
+    </div> <!-- col-md-9 main-content box -->
   </div> <!-- /.container -->
   <%= render 'layouts/footer' %>
 </div> <!-- /#2-col-rightsidebar .body -->

@@ -1,6 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 7.10.2015
+### FIXED
+- User model missing migration
+- User model missing profile_complete? method
+- Cleaned up junk code from layout sidebar
+- Layout markup fix
+
+### ADDED
+- Simple form bootstrap
+- New layout 2-col-leftsidebar
+
 ## 26.8.2015
 ### FIXED
 - Ability model gues user instance
